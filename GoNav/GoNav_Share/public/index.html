@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Location</title>
+</head>
+<body>
+    <label for="bus-number">Bus Number:</label>
+    <input type="text" id="bus-number" name="bus-number" required>
+    <button id="shareLocationBtn" type="button">Share Location</button><br/><br/>
+    <label  for="bus-delete">Bus Number: </label>
+    <input type="text" id="bus-delete" name="bus-number">
+    <button id="deleteButton" type="button">Delete Document</button>
+
+    <!-- Import Firebase SDKs -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyCEJDriMEXoMhSQZs7-EPJK4Fz4Sau62aE",
+          authDomain: "gonav-ef869.firebaseapp.com",
+          databaseURL: "https://gonav-ef869-default-rtdb.firebaseio.com",
+          projectId: "gonav-ef869",
+          storageBucket: "gonav-ef869.appspot.com",
+          messagingSenderId: "334594844004",
+          appId: "1:334594844004:web:4000d39b22eea90ff38671",
+          measurementId: "G-VX1LXL6KHV"
+        };
+      
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore();
+
+        let permissionRequested = false;
+         
+
+        document.getElementById('shareLocationBtn').addEventListener('click', () => {
+    const busNumber = document.getElementById('bus-number').value;
+    if (busNumber) {
+        async function shareMyLocation() {
+            try {
+                if (!permissionRequested) {
+                    // Check for location permission only if not already requested
+                    const permissionStatus = await navigator.permissions.query({ name: 'geolocation' });
+                    if (permissionStatus.state === 'denied') {
+                        throw new Error('Location permission denied');
+                    }
+                    permissionRequested = true; // Set permissionRequested to true to prevent further permission requests
+                }
+
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject);
+                });
+
+                const { latitude, longitude } = position.coords;
+
+                // Use the bus number as the document ID
+                const docRef = doc(db, "locations", busNumber);
+
+                await setDoc(docRef, {
+                    latitude,
+                    longitude,
+                }, { merge: true }); // This will update the document if it exists, or create it if it doesn't
+
+                console.log('Location updated successfully for bus number:', busNumber);
+            } catch (error) {
+                console.error('Error updating location:', error);
+                if (error.code === error.PERMISSION_DENIED) {
+                    alert('Location access denied. Please allow location access to share your location. If you see this message again, check your browser settings to ensure location access is enabled for this site.');
+                } else {
+                    alert('Failed to update location. Please try again.');
+                }
+            }
+        } // This closing brace was misplaced. It should be here to close the shareMyLocation function.
+        shareMyLocation(); // Call the function
+    } else {
+        alert('Please enter a bus number.');
+    }
+}); // This closing brace closes the event listener callback function.
+
+        // Update location every 600 milliseconds
+        setInterval(() => {
+            const busNumber = document.getElementById('bus-number').value;
+            if (busNumber) {
+                shareLocation(busNumber);
+            }
+        }, 10000);
+
+
+        document.getElementById('deleteButton').addEventListener('click', async () => {
+    const busNumber = document.getElementById('bus-delete').value.trim(); // Trim to remove whitespace
+    if (busNumber) {
+        try {
+            const docRef = db.doc("locations/" + busNumber); // Reference to the document
+            const docSnap = await docRef.get(); // Get the document snapshot
+            
+            if (docSnap.exists()) { // Check if document exists
+                await docRef.delete(); // Delete the document
+                console.log('Document deleted successfully for bus number:', busNumber);
+                alert('Document deleted successfully.');
+            } else {
+                console.log('Document does not exist for bus number:', busNumber);
+                alert('Document does not exist for the entered bus number.');
+            }
+        } catch (error) {
+            console.error('Error deleting document:', error);
+            alert('Failed to delete document. Please try again.');
+        }
+    } else {
+        alert('Please enter a bus number to delete.');
+    }
+});
+
+    </script>
+</body>
+</html>
