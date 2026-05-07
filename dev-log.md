@@ -8,3 +8,4 @@ Running notes on ongoing development work.
 - updated dependencies to latest stable versions
 ### 2026-05-07
 - fixed responsive layout issues on mobile viewport
+- updated API endpoints to handle edge cases
