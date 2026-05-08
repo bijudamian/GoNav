@@ -9,3 +9,5 @@ Running notes on ongoing development work.
 ### 2026-05-07
 - fixed responsive layout issues on mobile viewport
 - updated API endpoints to handle edge cases
+### 2026-05-08
+- cleaned up git history and removed debug logs
