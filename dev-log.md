@@ -12,3 +12,5 @@ Running notes on ongoing development work.
 ### 2026-05-08
 - cleaned up git history and removed debug logs
 - updated environment configuration for staging
+### 2026-05-09
+- refactored data fetching with better caching
