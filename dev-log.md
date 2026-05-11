@@ -16,3 +16,4 @@ Running notes on ongoing development work.
 - refactored data fetching with better caching
 ### 2026-05-11
 - updated README with setup and usage instructions
+- improved TypeScript types and interfaces
