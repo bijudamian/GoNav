@@ -14,3 +14,5 @@ Running notes on ongoing development work.
 - updated environment configuration for staging
 ### 2026-05-09
 - refactored data fetching with better caching
+### 2026-05-11
+- updated README with setup and usage instructions
