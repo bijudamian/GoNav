@@ -19,3 +19,4 @@ Running notes on ongoing development work.
 - improved TypeScript types and interfaces
 ### 2026-05-13
 - improved error handling in async functions
+- updated environment configuration for staging
