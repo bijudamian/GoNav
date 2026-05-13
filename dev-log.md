@@ -17,3 +17,5 @@ Running notes on ongoing development work.
 ### 2026-05-11
 - updated README with setup and usage instructions
 - improved TypeScript types and interfaces
+### 2026-05-13
+- improved error handling in async functions
