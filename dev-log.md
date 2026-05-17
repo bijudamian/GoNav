@@ -22,3 +22,5 @@ Running notes on ongoing development work.
 - updated environment configuration for staging
 ### 2026-05-16
 - fixed console warnings and deprecated API calls
+### 2026-05-17
+- improved form validation and user feedback
