@@ -24,3 +24,5 @@ Running notes on ongoing development work.
 - fixed console warnings and deprecated API calls
 ### 2026-05-17
 - improved form validation and user feedback
+### 2026-05-19
+- refactored data fetching with better caching
