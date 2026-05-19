@@ -26,3 +26,4 @@ Running notes on ongoing development work.
 - improved form validation and user feedback
 ### 2026-05-19
 - refactored data fetching with better caching
+- improved accessibility with proper ARIA labels
