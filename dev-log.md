@@ -27,3 +27,5 @@ Running notes on ongoing development work.
 ### 2026-05-19
 - refactored data fetching with better caching
 - improved accessibility with proper ARIA labels
+### 2026-05-20
+- reviewed documentation and updated stale sections
