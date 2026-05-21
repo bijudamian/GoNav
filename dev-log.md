@@ -29,3 +29,5 @@ Running notes on ongoing development work.
 - improved accessibility with proper ARIA labels
 ### 2026-05-20
 - reviewed documentation and updated stale sections
+### 2026-05-21
+- improved form validation and user feedback
